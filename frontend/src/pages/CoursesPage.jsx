@@ -12,7 +12,7 @@ const CoursesPage = () => {
   const [activeLessonModal, setActiveLessonModal] = useState(null);
   const [expandedModule, setExpandedModule] = useState(0);
 
-  const realShubhamPhoto = "/shubham.jpg";
+  const stylishMalePhoto = "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=600&auto=format&fit=crop&q=80";
 
   useEffect(() => {
     axios.get('/api/courses').then(res => setCourses(res.data)).catch(() => {});
@@ -155,7 +155,7 @@ const CoursesPage = () => {
       <div className="p-8 rounded-3xl glass-3d-card-light border border-emerald-200 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
         <div className="md:col-span-3 flex justify-center">
           <img
-            src={realShubhamPhoto}
+            src={stylishMalePhoto}
             alt="Shubham Instructor"
             className="w-36 h-36 rounded-2xl object-cover border-2 border-emerald-500 shadow-lg"
           />

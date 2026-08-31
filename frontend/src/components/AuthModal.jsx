@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { X, Mail, Lock, User, AlertCircle, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { X, Mail, Lock, User, AlertCircle, CheckCircle2, ShieldCheck, Key } from 'lucide-react';
 
 const AuthModal = ({ isOpen, onClose }) => {
   const { login, register } = useAuth();
@@ -32,6 +32,18 @@ const AuthModal = ({ isOpen, onClose }) => {
     }
   };
 
+  const handleQuickFillAdmin = () => {
+    setEmail('admin@tradivora.com');
+    setPassword('admin123');
+    setIsLogin(true);
+  };
+
+  const handleQuickFillUser = () => {
+    setEmail('trader@tradivora.com');
+    setPassword('trader123');
+    setIsLogin(true);
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-fadeIn">
       <div className="bg-white border border-slate-200 w-full max-w-md rounded-3xl shadow-2xl p-6 sm:p-8 relative overflow-hidden">
@@ -45,7 +57,7 @@ const AuthModal = ({ isOpen, onClose }) => {
         </button>
 
         {/* Modal Header */}
-        <div className="mb-6">
+        <div className="mb-5">
           <div className="w-10 h-10 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 mb-3 shadow-sm">
             <ShieldCheck className="w-5 h-5" />
           </div>
@@ -53,14 +65,32 @@ const AuthModal = ({ isOpen, onClose }) => {
             {isLogin ? 'Welcome Back to Tradivora' : 'Create Tradivora Account'}
           </h3>
           <p className="text-xs text-slate-600 font-medium">
-            {isLogin ? 'Access your watchlist, trading journal, and portfolio.' : 'Join thousands of active market analysts today.'}
+            {isLogin ? 'Access your watchlist, trading journal, and admin portal.' : 'Join thousands of active market analysts today.'}
           </p>
         </div>
 
-        {/* Quick Demo Credentials Banner */}
-        <div className="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 space-y-1 mb-5 font-mono">
-          <div className="font-bold">⚡ Quick Demo Login:</div>
-          <div>User: <span className="underline">trader@tradivora.com</span> | Pass: <span className="underline">trader123</span></div>
+        {/* Quick Credentials Buttons Banner */}
+        <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2 mb-5 text-xs font-mono">
+          <span className="font-bold text-slate-700 block text-[11px] uppercase tracking-wider">⚡ One-Click Quick Login:</span>
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              onClick={handleQuickFillAdmin}
+              className="p-2 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 font-bold hover:bg-amber-100 transition-all text-[11px] flex items-center justify-center space-x-1"
+            >
+              <Key className="w-3 h-3 text-amber-600" />
+              <span>Admin Login</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handleQuickFillUser}
+              className="p-2 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 font-bold hover:bg-emerald-100 transition-all text-[11px] flex items-center justify-center space-x-1"
+            >
+              <User className="w-3 h-3 text-emerald-600" />
+              <span>Trader Login</span>
+            </button>
+          </div>
         </div>
 
         {error && (
@@ -95,7 +125,7 @@ const AuthModal = ({ isOpen, onClose }) => {
               <input
                 type="email"
                 required
-                placeholder="trader@tradivora.com"
+                placeholder="admin@tradivora.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full bg-slate-50 text-slate-900 font-bold px-4 py-2.5 pl-9 rounded-xl border border-slate-200 focus:outline-none focus:border-emerald-500"

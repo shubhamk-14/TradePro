@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import TickerTape from './components/TickerTape';
+import ScrollToTop from './components/ScrollToTop';
 
 // Pages
 import HomePage from './pages/HomePage';
@@ -27,6 +28,7 @@ import OptionChainPage from './pages/OptionChainPage';
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col font-sans relative">
         <TickerTape />
         <Navbar />

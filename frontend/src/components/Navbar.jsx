@@ -56,7 +56,7 @@ const Navbar = () => {
   const isActive = (path) => location.pathname === path;
   const isSecondaryActive = secondaryNavLinks.some(link => isActive(link.path));
 
-  const realShubhamPhoto = "/shubham.jpg";
+  const stylishMalePhoto = "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=300&auto=format&fit=crop&q=80";
 
   return (
     <>
@@ -78,7 +78,6 @@ const Navbar = () => {
               <div>
                 <span className="text-lg sm:text-2xl font-black tracking-tight text-slate-900 font-sans flex items-center">
                   Tradi<span className="text-emerald-600">vora</span>
-                  <span className="ml-1.5 px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-[9px] font-mono font-bold text-emerald-700 hidden sm:inline">V2.0</span>
                 </span>
                 <span className="block text-[8px] sm:text-[9px] uppercase tracking-widest text-emerald-700 font-mono font-bold flex items-center">
                   <span>{t('handcraftedBy')}</span>
@@ -107,6 +106,21 @@ const Navbar = () => {
                   </Link>
                 );
               })}
+
+              {/* Admin Link Button (If Logged In as Admin) */}
+              {user && user.role === 'admin' && (
+                <Link
+                  to="/admin"
+                  className={`flex items-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all ${
+                    isActive('/admin')
+                      ? 'bg-amber-100 text-amber-900 border border-amber-300 shadow-sm'
+                      : 'bg-amber-50 text-amber-800 border border-amber-200 hover:bg-amber-100'
+                  }`}
+                >
+                  <Shield className="w-3.5 h-3.5 text-amber-600" />
+                  <span>Admin Desk</span>
+                </Link>
+              )}
 
               {/* Dropdown Menu */}
               <div className="relative" ref={dropdownRef}>
@@ -160,15 +174,6 @@ const Navbar = () => {
             {/* Quick Actions */}
             <div className="flex items-center space-x-2 flex-shrink-0 z-50">
               
-              {/* Language Toggle Button */}
-              <button
-                onClick={toggleLanguage}
-                className="flex items-center space-x-1 px-2.5 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-mono font-bold transition-all shadow-sm"
-                title="Switch Language / भाषा बदलें"
-              >
-                <Languages className="w-3.5 h-3.5 text-emerald-600" />
-                <span>{lang === 'en' ? 'हिन्दी' : 'EN'}</span>
-              </button>
 
               {/* Search */}
               <div className="hidden xl:flex items-center relative">
@@ -201,7 +206,7 @@ const Navbar = () => {
                     className="flex items-center space-x-1.5 p-1 pr-2.5 rounded-xl bg-emerald-50 border border-emerald-200 hover:border-emerald-500 transition-all shadow-sm"
                   >
                     <img 
-                      src={user.profile_pic || realShubhamPhoto} 
+                      src={user.profile_pic || stylishMalePhoto} 
                       alt={user.full_name} 
                       className="w-7 h-7 rounded-lg object-cover border border-emerald-500"
                     />
@@ -246,7 +251,7 @@ const Navbar = () => {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <img 
-                      src={user.profile_pic || realShubhamPhoto} 
+                      src={user.profile_pic || stylishMalePhoto} 
                       alt={user.full_name} 
                       className="w-9 h-9 rounded-xl object-cover border border-emerald-500"
                     />

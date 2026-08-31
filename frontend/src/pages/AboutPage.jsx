@@ -5,7 +5,7 @@ import {
 } from 'lucide-react';
 
 const AboutPage = () => {
-  const stylishMaleShubhamPhoto = "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=600&auto=format&fit=crop&q=80";
+  const stylishMalePhoto = "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=600&auto=format&fit=crop&q=80";
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12 bg-[#F8FAFC]">
@@ -18,8 +18,8 @@ const AboutPage = () => {
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-teal-400 rounded-3xl blur opacity-70 group-hover:opacity-100 transition duration-1000"></div>
             <img
-              src={stylishMaleShubhamPhoto}
-              alt="Shubham - Lead Analyst"
+              src={stylishMalePhoto}
+              alt="Shubham - Founder & Lead Analyst"
               className="relative w-56 h-56 sm:w-64 sm:h-64 rounded-2xl object-cover border-2 border-emerald-500 shadow-2xl"
             />
           </div>
@@ -38,11 +38,11 @@ const AboutPage = () => {
           </h1>
 
           <p className="text-slate-700 text-sm leading-relaxed">
-            Welcome to TradePro (Tradivora). I am Shubham, an active index futures & options trader, market researcher, and Smart Money Concepts practitioner. Having spent over 8 years analyzing Indian benchmark indices (Nifty, Bank Nifty) and global financial assets, my goal is to strip away retail noise and teach real order-flow dynamics.
+            Welcome to Tradivora. I am Shubham, an active index futures & options trader, market researcher, and Smart Money Concepts practitioner. Having spent over 8 years analyzing Indian benchmark indices (Nifty, Bank Nifty) and global financial assets, my goal is to strip away retail noise and teach real order-flow dynamics.
           </p>
 
           <p className="text-slate-600 text-xs leading-relaxed">
-            TradePro was built to solve a critical gap in the trading community: providing a unified workstation combining real-time TradingView charts, automated risk calculators, trade logging journals, and institutional market structure education.
+            Tradivora was built to solve a critical gap in the trading community: providing a unified workstation combining real-time TradingView charts, automated risk calculators, trade logging journals, and institutional market structure education.
           </p>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-slate-200 text-xs">
@@ -90,9 +90,9 @@ const AboutPage = () => {
 
           <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
             <span className="text-xs font-mono font-bold text-emerald-700">2023 - Present</span>
-            <h4 className="text-base font-bold text-slate-900">Building TradePro Platform</h4>
+            <h4 className="text-base font-bold text-slate-900">Building Tradivora Platform</h4>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Launched TradePro (Tradivora) to provide clean market tools, risk calculators, and structured courses for thousands of aspiring traders.
+              Launched Tradivora to provide clean market tools, risk calculators, and structured courses for thousands of aspiring traders.
             </p>
           </div>
         </div>

@@ -8,13 +8,13 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token') || null);
   const [loading, setLoading] = useState(true);
 
-  const stylishMalePic = "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=600&auto=format&fit=crop&q=80";
+  const stylishMalePhoto = "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=600&auto=format&fit=crop&q=80";
 
   const normalizeUser = (userData) => {
     if (!userData) return null;
     return {
       ...userData,
-      profile_pic: stylishMalePic // Force the stylish male photo for all user profiles
+      profile_pic: stylishMalePhoto
     };
   };
 

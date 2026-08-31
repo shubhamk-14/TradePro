@@ -16,7 +16,7 @@ const DashboardPage = () => {
   const [journals, setJournals] = useState([]);
   const [blogs, setBlogs] = useState([]);
 
-  const stylishMaleShubhamPhoto = "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=300&auto=format&fit=crop&q=80";
+  const realShubhamPhoto = "/shubham.jpg";
 
   useEffect(() => {
     if (user) {
@@ -36,7 +36,7 @@ const DashboardPage = () => {
       <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center space-x-4">
           <img
-            src={user?.profile_pic || stylishMaleShubhamPhoto}
+            src={user?.profile_pic || realShubhamPhoto}
             alt={user?.full_name}
             className="w-16 h-16 rounded-2xl object-cover border-2 border-emerald-500 shadow-md"
           />

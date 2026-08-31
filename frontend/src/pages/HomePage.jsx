@@ -29,7 +29,7 @@ const HomePage = () => {
     }
   };
 
-  const stylishMaleShubhamPhoto = "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=600&auto=format&fit=crop&q=80";
+  const stylishMalePhoto = "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=600&auto=format&fit=crop&q=80";
 
   return (
     <div className="space-y-20 pb-20 bg-[#F8FAFC]">
@@ -175,14 +175,14 @@ const HomePage = () => {
             
             <div className="lg:col-span-4 flex justify-center">
               <div className="relative">
-                <div className="w-44 h-44 sm:w-52 sm:h-52 rounded-3xl p-1 bg-gradient-to-tr from-emerald-500 via-teal-500 to-indigo-600 shadow-xl">
+                <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-3xl p-1 bg-gradient-to-tr from-emerald-500 via-teal-500 to-indigo-600 shadow-xl">
                   <img 
-                    src={stylishMaleShubhamPhoto} 
+                    src={stylishMalePhoto} 
                     alt="Founder Shubham" 
                     className="w-full h-full rounded-[22px] object-cover"
                   />
                 </div>
-                <div className="absolute -bottom-3 -right-3 px-3 py-1.5 rounded-xl bg-white border border-emerald-200 text-emerald-800 text-xs font-mono font-bold flex items-center space-x-1.5 shadow-md">
+                <div className="absolute -bottom-3 -right-3 px-3.5 py-1.5 rounded-xl bg-white border border-emerald-200 text-emerald-800 text-xs font-mono font-bold flex items-center space-x-1.5 shadow-md">
                   <UserCheck className="w-4 h-4 text-emerald-600" />
                   <span>Founder & Lead Strategist</span>
                 </div>

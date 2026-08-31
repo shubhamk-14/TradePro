@@ -56,7 +56,7 @@ const Navbar = () => {
   const isActive = (path) => location.pathname === path;
   const isSecondaryActive = secondaryNavLinks.some(link => isActive(link.path));
 
-  const stylishMaleShubhamPhoto = "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=300&auto=format&fit=crop&q=80";
+  const realShubhamPhoto = "/shubham.jpg";
 
   return (
     <>
@@ -68,7 +68,7 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             
-            {/* Brand Logo & Founder Tag - TRADIVORA BRAND NAME */}
+            {/* Brand Logo & Founder Tag */}
             <Link to="/" className="flex items-center space-x-2.5 group flex-shrink-0">
               <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-tr from-emerald-500 via-teal-500 to-indigo-600 p-[2px] flex items-center justify-center shadow-md shadow-emerald-500/20 group-hover:scale-105 transition-transform duration-300">
                 <div className="w-full h-full bg-white rounded-[14px] flex items-center justify-center">
@@ -201,7 +201,7 @@ const Navbar = () => {
                     className="flex items-center space-x-1.5 p-1 pr-2.5 rounded-xl bg-emerald-50 border border-emerald-200 hover:border-emerald-500 transition-all shadow-sm"
                   >
                     <img 
-                      src={user.profile_pic || stylishMaleShubhamPhoto} 
+                      src={user.profile_pic || realShubhamPhoto} 
                       alt={user.full_name} 
                       className="w-7 h-7 rounded-lg object-cover border border-emerald-500"
                     />
@@ -246,7 +246,7 @@ const Navbar = () => {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <img 
-                      src={user.profile_pic || stylishMaleShubhamPhoto} 
+                      src={user.profile_pic || realShubhamPhoto} 
                       alt={user.full_name} 
                       className="w-9 h-9 rounded-xl object-cover border border-emerald-500"
                     />

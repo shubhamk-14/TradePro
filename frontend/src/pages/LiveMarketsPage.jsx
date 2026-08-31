@@ -16,7 +16,7 @@ const LiveMarketsPage = () => {
     { id: 'commodity', label: 'Commodities' },
   ];
 
-  const filteredAssets = marketData.filter((asset) => {
+  const filteredAssets = (marketData || []).filter((asset) => {
     const matchesCategory = activeCategory === 'all' || asset.asset_class === activeCategory;
     const matchesSearch = asset.name.toLowerCase().includes(search.toLowerCase()) || 
                           asset.symbol.toLowerCase().includes(search.toLowerCase());
@@ -30,7 +30,7 @@ const LiveMarketsPage = () => {
       <div className="border-b border-slate-200 pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-black text-slate-900 flex items-center">
-            <Activity className="w-8 h-8 mr-3 text-emerald-600" />
+            <Activity className="w-8 h-8 mr-3 text-emerald-600 animate-pulse" />
             Live Market Heatmap & Quotes
           </h1>
           <p className="text-xs text-slate-600 mt-1">Real-time streaming prices, 24h high/low ranges & percentage change indicators.</p>
@@ -38,7 +38,7 @@ const LiveMarketsPage = () => {
 
         <Link
           to="/charts"
-          className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold text-xs shadow-md shadow-emerald-600/20 flex items-center space-x-1.5 self-start sm:self-auto"
+          className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold text-xs shadow-md shadow-emerald-600/20 flex items-center space-x-1.5 self-start sm:self-auto hover:scale-[1.02] transition-all"
         >
           <span>Launch Chart Workstation</span>
           <ArrowUpRight className="w-4 h-4" />
@@ -98,22 +98,33 @@ const LiveMarketsPage = () => {
 
               <div>
                 <span className="text-3xl font-mono font-black text-slate-900 block">₹{asset.price.toLocaleString()}</span>
-                <span className={`text-xs font-mono font-black flex items-center mt-1 ${isPos ? 'text-emerald-600' : 'text-rose-600'}`}>
-                  {isPos ? <TrendingUp className="w-4 h-4 mr-1 text-emerald-600" /> : <TrendingDown className="w-4 h-4 mr-1 text-rose-600" />}
-                  {isPos ? '+' : ''}{asset.percent_change}% ({isPos ? '+' : ''}{asset.change})
-                </span>
+                <div className="flex items-center space-x-2 mt-1">
+                  <span className={`text-xs font-mono font-bold flex items-center ${isPos ? 'text-emerald-600' : 'text-rose-600'}`}>
+                    {isPos ? <TrendingUp className="w-3.5 h-3.5 mr-1" /> : <TrendingDown className="w-3.5 h-3.5 mr-1" />}
+                    {isPos ? '+' : ''}{asset.change} ({isPos ? '+' : ''}{asset.percent_change}%)
+                  </span>
+                </div>
               </div>
 
-              <div className="pt-3 border-t border-slate-100 grid grid-cols-2 gap-2 text-[11px] font-mono">
+              {/* 24h High/Low Stats */}
+              <div className="pt-3 border-t border-slate-200 grid grid-cols-2 gap-2 text-[11px] font-mono">
                 <div>
-                  <span className="text-slate-400 block font-sans text-[10px]">24h High</span>
-                  <span className="font-bold text-slate-800">₹{asset.high.toLocaleString()}</span>
+                  <span className="text-slate-400 block">24h High</span>
+                  <span className="font-bold text-slate-800">₹{asset.high?.toLocaleString() || '-'}</span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block font-sans text-[10px]">24h Low</span>
-                  <span className="font-bold text-slate-800">₹{asset.low.toLocaleString()}</span>
+                  <span className="text-slate-400 block">24h Low</span>
+                  <span className="font-bold text-slate-800">₹{asset.low?.toLocaleString() || '-'}</span>
                 </div>
               </div>
+
+              <Link
+                to="/charts"
+                className="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs flex items-center justify-center space-x-1 transition-all"
+              >
+                <span>View Live Chart</span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-slate-500" />
+              </Link>
             </div>
           );
         })}

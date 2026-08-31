@@ -67,7 +67,6 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
     header = {"alg": ALGORITHM, "typ": "JWT"}
     header_b64 = base64.urlsafe_b64encode(json.dumps(header).encode()).decode().rstrip("=")
     
-    # Convert datetime to timestamp for JSON serialization
     payload_to_encode = to_encode.copy()
     if isinstance(payload_to_encode.get("exp"), datetime):
         payload_to_encode["exp"] = int(payload_to_encode["exp"].timestamp())
@@ -97,7 +96,6 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
             parts = token.split(".")
             if len(parts) == 3:
                 payload_b64 = parts[1]
-                # Re-add padding
                 padded_b64 = payload_b64 + "=" * (-len(payload_b64) % 4)
                 payload_data = json.loads(base64.urlsafe_b64decode(padded_b64).decode())
                 email = payload_data.get("sub")
@@ -108,4 +106,14 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
         return None
     
     user = db.query(models.User).filter(models.User.email == email).first()
+    return user
+
+def require_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)) -> models.User:
+    user = get_current_user(token, db)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Authentication credentials required",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
     return user

@@ -49,19 +49,19 @@ const HomePage = () => {
               <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold shadow-sm">
                 <Sparkles className="w-4 h-4 text-emerald-600 animate-pulse" />
                 <span className="font-mono uppercase tracking-wider text-[11px] text-emerald-900">
-                  Built by Shubham • Institutional SMC Platform
+                  Built by Shubham • Tradivora SMC Platform
                 </span>
               </div>
 
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.08]">
                 Master Markets with <br />
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 via-teal-600 to-indigo-600">
-                  Institutional Precision
+                  Tradivora Precision
                 </span>
               </h1>
 
               <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-xl">
-                TradePro (Tradivora) is an authentic market terminal engineered for serious option buyers, SMC scalpers, and swing traders. Powered by real-time TradingView charting and institutional order block tracking.
+                Tradivora is an authentic market terminal engineered for serious option buyers, SMC scalpers, and swing traders. Powered by real-time TradingView charting and institutional order block tracking.
               </p>
 
               {/* Action Buttons */}
@@ -167,13 +167,12 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* 3. FOUNDER SHUBHAM SPOTLIGHT (STYLISH MALE PHOTO) */}
+      {/* 3. FOUNDER SHUBHAM SPOTLIGHT */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="p-6 sm:p-10 rounded-3xl glass-3d-card-light border border-emerald-200 relative overflow-hidden">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
-            {/* Stylish Male Profile Photo */}
             <div className="lg:col-span-4 flex justify-center">
               <div className="relative">
                 <div className="w-44 h-44 sm:w-52 sm:h-52 rounded-3xl p-1 bg-gradient-to-tr from-emerald-500 via-teal-500 to-indigo-600 shadow-xl">
@@ -198,7 +197,7 @@ const HomePage = () => {
                 "Built by a trader, for traders — clean market tools and institutional order flow clarity."
               </h3>
               <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
-                Hi, I'm <strong className="text-slate-900">Shubham</strong>, founder and architect of TradePro (Tradivora). I built this platform to provide a unified workstation combining real-time TradingView charts, automated risk calculators, trade logging journals, and institutional market structure education.
+                Hi, I'm <strong className="text-slate-900">Shubham</strong>, founder and architect of Tradivora. I built this platform to provide a unified workstation combining real-time TradingView charts, automated risk calculators, trade logging journals, and institutional market structure education.
               </p>
               
               <div className="flex flex-wrap items-center gap-4 pt-2 text-xs font-semibold">

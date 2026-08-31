@@ -50,7 +50,7 @@ const AuthModal = ({ isOpen, onClose }) => {
             <ShieldCheck className="w-5 h-5" />
           </div>
           <h3 className="text-2xl font-black text-slate-900 mb-1">
-            {isLogin ? 'Welcome Back to TradePro' : 'Create TradePro Account'}
+            {isLogin ? 'Welcome Back to Tradivora' : 'Create Tradivora Account'}
           </h3>
           <p className="text-xs text-slate-600 font-medium">
             {isLogin ? 'Access your watchlist, trading journal, and portfolio.' : 'Join thousands of active market analysts today.'}
@@ -58,67 +58,62 @@ const AuthModal = ({ isOpen, onClose }) => {
         </div>
 
         {/* Quick Demo Credentials Banner */}
-        <div className="mb-5 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs text-slate-800 space-y-1 shadow-sm">
-          <p className="font-bold text-emerald-900 flex items-center">
-            <span>💡 Demo Login Credentials:</span>
-          </p>
-          <div className="pt-1 font-mono text-[11px] text-slate-700 space-y-0.5">
-            <p><strong className="text-slate-900">Admin:</strong> admin@tradivora.com | <strong>Pass:</strong> admin123</p>
-            <p><strong className="text-slate-900">Trader:</strong> trader@tradivora.com | <strong>Pass:</strong> trader123</p>
-          </div>
+        <div className="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 space-y-1 mb-5 font-mono">
+          <div className="font-bold">⚡ Quick Demo Login:</div>
+          <div>User: <span className="underline">trader@tradivora.com</span> | Pass: <span className="underline">trader123</span></div>
         </div>
 
         {error && (
-          <div className="mb-4 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 flex items-center space-x-2 font-medium">
-            <AlertCircle className="w-4 h-4 flex-shrink-0 text-rose-600" />
+          <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold mb-4 flex items-center space-x-2">
+            <AlertCircle className="w-4 h-4 flex-shrink-0" />
             <span>{error}</span>
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4 text-xs font-medium">
           {!isLogin && (
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">Full Name</label>
+              <label className="block text-slate-700 font-bold mb-1">Full Name</label>
               <div className="relative">
-                <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                <User className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Shubham"
+                  placeholder="Shubham Mehta"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full bg-slate-50 text-slate-900 font-semibold text-xs pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-emerald-500 focus:bg-white transition-all"
+                  className="w-full bg-slate-50 text-slate-900 font-bold px-4 py-2.5 pl-9 rounded-xl border border-slate-200 focus:outline-none focus:border-emerald-500"
                 />
               </div>
             </div>
           )}
 
           <div>
-            <label className="block text-xs font-bold text-slate-700 mb-1.5">Email Address</label>
+            <label className="block text-slate-700 font-bold mb-1">Email Address</label>
             <div className="relative">
-              <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+              <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
               <input
                 type="email"
                 required
-                placeholder="admin@tradivora.com"
+                placeholder="trader@tradivora.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-slate-50 text-slate-900 font-semibold text-xs pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-emerald-500 focus:bg-white transition-all"
+                className="w-full bg-slate-50 text-slate-900 font-bold px-4 py-2.5 pl-9 rounded-xl border border-slate-200 focus:outline-none focus:border-emerald-500"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-700 mb-1.5">Password</label>
+            <label className="block text-slate-700 font-bold mb-1">Password</label>
             <div className="relative">
-              <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+              <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
               <input
                 type="password"
                 required
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-slate-50 text-slate-900 font-semibold text-xs pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-emerald-500 focus:bg-white transition-all"
+                className="w-full bg-slate-50 text-slate-900 font-bold px-4 py-2.5 pl-9 rounded-xl border border-slate-200 focus:outline-none focus:border-emerald-500"
               />
             </div>
           </div>
@@ -126,35 +121,20 @@ const AuthModal = ({ isOpen, onClose }) => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-black text-xs shadow-lg shadow-emerald-600/20 hover:opacity-95 active:scale-[0.98] transition-all disabled:opacity-50 mt-2"
+            className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-black text-xs shadow-md shadow-emerald-600/20 hover:opacity-95 transition-all flex items-center justify-center space-x-2"
           >
-            {loading ? 'Authenticating...' : isLogin ? 'Sign In to TradePro' : 'Create Free Account'}
+            {loading ? <span>Authenticating...</span> : <span>{isLogin ? 'Sign In to Account' : 'Register Account'}</span>}
           </button>
         </form>
 
-        {/* Toggle Login/Register */}
-        <div className="mt-6 text-center text-xs text-slate-600 border-t border-slate-100 pt-4">
-          {isLogin ? (
-            <p>
-              Don't have an account?{' '}
-              <button
-                onClick={() => { setIsLogin(false); setError(''); }}
-                className="font-bold text-emerald-600 hover:underline"
-              >
-                Sign Up Now
-              </button>
-            </p>
-          ) : (
-            <p>
-              Already registered?{' '}
-              <button
-                onClick={() => { setIsLogin(true); setError(''); }}
-                className="font-bold text-emerald-600 hover:underline"
-              >
-                Sign In
-              </button>
-            </p>
-          )}
+        <div className="mt-5 text-center text-xs font-semibold text-slate-600 pt-4 border-t border-slate-100">
+          {isLogin ? "Don't have an account?" : "Already registered?"}{' '}
+          <button
+            onClick={() => setIsLogin(!isLogin)}
+            className="text-emerald-600 font-bold hover:underline ml-1"
+          >
+            {isLogin ? 'Create Account' : 'Sign In'}
+          </button>
         </div>
 
       </div>

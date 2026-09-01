@@ -44,7 +44,7 @@ class Blog(Base):
     category = Column(String, index=True, nullable=False)
     excerpt = Column(Text, nullable=False)
     content = Column(Text, nullable=False)
-    author = Column(String, default="TradePro Team")
+    author = Column(String, default="Tradivora Team")
     read_time = Column(String, default="5 min read")
     tags = Column(String, nullable=True)  # Comma separated
     image_url = Column(String, nullable=True)
@@ -56,22 +56,42 @@ class Course(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, nullable=False)
     description = Column(Text, nullable=False)
+    short_description = Column(Text, nullable=True)
+    full_description = Column(Text, nullable=True)
+    instructor = Column(String, default="Shubham")
+    price = Column(Float, default=0.0)
+    rating = Column(Float, default=4.9)
+    category = Column(String, default="SMC Trading")
     level = Column(String, nullable=False)  # 'Beginner', 'Intermediate', 'Advanced'
     is_premium = Column(Boolean, default=False)
+    modules_count = Column(Integer, default=8)
     lessons_count = Column(Integer, default=0)
     duration = Column(String, default="2 Hours")
     image_url = Column(String, nullable=True)
     lessons_json = Column(Text, nullable=True)  # JSON string of lessons array
     created_at = Column(DateTime, default=datetime.utcnow)
 
+class Strategy(Base):
+    __tablename__ = "strategies"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, nullable=False)
+    category = Column(String, index=True, nullable=False)
+    win_rate = Column(String, default="75%")
+    risk_reward = Column(String, default="1:3")
+    timeframe = Column(String, default="15m")
+    description = Column(Text, nullable=False)
+    rules_json = Column(Text, nullable=True)
+    chart_example_symbol = Column(String, nullable=True)
+
 class StrategyGuide(Base):
     __tablename__ = "strategy_guides"
 
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, nullable=False)
-    category = Column(String, index=True, nullable=False)  # e.g., 'Price Action', 'ICT', 'SMC', 'Scalping', 'Risk Management'
+    category = Column(String, index=True, nullable=False)
     description = Column(Text, nullable=False)
-    key_points = Column(Text, nullable=False)  # JSON string
+    key_points = Column(Text, nullable=False)
     difficulty = Column(String, default="Intermediate")
     icon_name = Column(String, default="TrendingUp")
 
@@ -107,7 +127,7 @@ class TradingJournal(Base):
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     symbol = Column(String, nullable=False)
-    trade_type = Column(String, nullable=False)  # 'BUY' or 'SELL'
+    trade_type = Column(String, nullable=False)
     entry_price = Column(Float, nullable=False)
     exit_price = Column(Float, nullable=False)
     quantity = Column(Float, nullable=False)
@@ -125,9 +145,9 @@ class EconomicEvent(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     event_title = Column(String, nullable=False)
-    country = Column(String, nullable=False)  # 'IN', 'US', 'EU'
+    country = Column(String, nullable=False)
     event_date = Column(String, nullable=False)
-    impact = Column(String, nullable=False)  # 'HIGH', 'MEDIUM', 'LOW'
+    impact = Column(String, nullable=False)
     actual = Column(String, nullable=True)
     forecast = Column(String, nullable=True)
     previous = Column(String, nullable=True)

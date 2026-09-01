@@ -80,20 +80,18 @@ def seed_database():
                 models.Blog(
                     title="Mastering Smart Money Concepts (SMC): A Comprehensive Guide",
                     slug="mastering-smart-money-concepts",
-                    summary="Learn how institutional algorithms sweep liquidity and create high-probability order blocks in Nifty & Bank Nifty.",
+                    excerpt="Learn how institutional algorithms sweep liquidity and create high-probability order blocks in Nifty & Bank Nifty.",
                     content="Smart Money Concepts (SMC) is the framework used to track central bank and institutional flow...",
-                    author_name="Shubham",
-                    author_role="Lead Analyst",
+                    author="Shubham",
                     category="SMC Strategy",
                     read_time="6 min read"
                 ),
                 models.Blog(
                     title="Options Buying vs Options Selling: Risk Management for Indian Markets",
                     slug="options-buying-vs-selling",
-                    summary="Decipher option greeks, theta decay, and delta momentum to optimize your option trading win rates.",
+                    excerpt="Decipher option greeks, theta decay, and delta momentum to optimize your option trading win rates.",
                     content="Options trading in India has witnessed massive retail participation...",
-                    author_name="Shubham",
-                    author_role="Founder & Trader",
+                    author="Shubham",
                     category="Options Trading",
                     read_time="8 min read"
                 )
@@ -106,6 +104,7 @@ def seed_database():
             sample_courses = [
                 models.Course(
                     title="Institutional SMC & Order Block Mastery",
+                    description="Complete blueprint to trade liquidity sweeps, fair value gaps, and high-probability order blocks.",
                     short_description="Complete blueprint to trade liquidity sweeps, fair value gaps, and high-probability order blocks.",
                     full_description="Master the exact framework used by institutional prop desks to trade equity indices.",
                     instructor="Shubham",
@@ -118,6 +117,7 @@ def seed_database():
                 ),
                 models.Course(
                     title="Option Buying Momentum & Scalping Masterclass",
+                    description="High-speed scalping strategies for BankNifty & FinNifty zero-hero momentum moves.",
                     short_description="High-speed scalping strategies for BankNifty & FinNifty zero-hero momentum moves.",
                     full_description="Learn how to capture rapid option premium spikes using delta profile and VWAP strategies.",
                     instructor="Shubham",
@@ -198,34 +198,9 @@ def seed_database():
             db.add_all(sample_events)
             db.commit()
 
-        # 6. Seed Community Posts if empty
-        if db.query(models.CommunityPost).count() == 0:
-            sample_posts = [
-                models.CommunityPost(
-                    user_id=1,
-                    author_name="Shubham",
-                    title="Bank Nifty 15m Order Block Test - Trade Plan for Today",
-                    content="Bank Nifty has swept yesterday's high and left a clear 15m bullish order block around 47,800. Looking for long entries on pullbacks.",
-                    category="Nifty/BankNifty",
-                    upvotes=24,
-                    comment_count=8
-                ),
-                models.CommunityPost(
-                    user_id=2,
-                    author_name="Rahul Trader",
-                    title="How do you handle FOMO during news breakouts?",
-                    content="Whenever there is sudden news volatility, I tend to chase candles. How do experienced SMC traders wait for FVG retests?",
-                    category="Psychology",
-                    upvotes=15,
-                    comment_count=12
-                )
-            ]
-            db.add_all(sample_posts)
-            db.commit()
-
+        print("Database seed finished successfully!")
     except Exception as e:
         print(f"Error seeding database: {e}")
-        db.rollback()
     finally:
         db.close()
 

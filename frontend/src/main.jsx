@@ -8,8 +8,9 @@ import { MarketProvider } from './context/MarketContext'
 import { LanguageProvider } from './context/LanguageContext'
 
 // Configure global Axios API Base URL for production / Vercel deployments
-if (import.meta.env.VITE_API_BASE_URL) {
-  axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
+const apiBase = import.meta.env.VITE_API_BASE_URL;
+if (apiBase) {
+  axios.defaults.baseURL = apiBase.endsWith('/') ? apiBase.slice(0, -1) : apiBase;
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(

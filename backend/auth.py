@@ -11,20 +11,6 @@ from sqlalchemy.orm import Session
 import models
 from database import get_db
 
-# Try importing passlib and jose, fallback to hashlib if not available
-try:
-    from passlib.context import CryptContext
-    pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-    USE_PASSLIB = True
-except Exception:
-    USE_PASSLIB = False
-
-try:
-    from jose import jwt, JWTError
-    USE_JOSE = True
-except Exception:
-    USE_JOSE = False
-
 SECRET_KEY = os.getenv("SECRET_KEY", "tradivora_secret_super_secure_key_for_jwt_tokens_2026")
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "10080"))  # 7 Days default
@@ -32,35 +18,17 @@ ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "1008
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/auth/login", auto_error=False)
 
 def get_password_hash(password: str) -> str:
-    if USE_PASSLIB:
-        try:
-            return pwd_context.hash(password)
-        except Exception:
-            pass
-    # Fallback SHA256 hashing
     return hashlib.sha256((password + SECRET_KEY).encode()).hexdigest()
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     if not hashed_password or not plain_password:
         return False
-        
-    # 1. Direct string match
+    # Direct equality check
     if plain_password == hashed_password:
         return True
-        
-    # 2. SHA256 hash match
+    # SHA256 hash match
     sha256_hash = hashlib.sha256((plain_password + SECRET_KEY).encode()).hexdigest()
-    if sha256_hash == hashed_password:
-        return True
-
-    # 3. Bcrypt passlib match (if hash starts with $2)
-    if USE_PASSLIB and hashed_password.startswith("$2"):
-        try:
-            return pwd_context.verify(plain_password, hashed_password)
-        except Exception:
-            pass
-
-    return False
+    return sha256_hash == hashed_password
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
     to_encode = data.copy()
@@ -71,13 +39,7 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
     
     to_encode.update({"exp": expire})
     
-    if USE_JOSE:
-        try:
-            return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-        except Exception:
-            pass
-
-    # Custom JWT Encoder Fallback
+    # Custom JWT Encoder (Zero external dependency issues on Render)
     header = {"alg": ALGORITHM, "typ": "JWT"}
     header_b64 = base64.urlsafe_b64encode(json.dumps(header).encode()).decode().rstrip("=")
     
@@ -98,23 +60,15 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
         return None
     
     email = None
-    if USE_JOSE:
-        try:
-            payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-            email = payload.get("sub")
-        except JWTError:
-            pass
-
-    if not email:
-        try:
-            parts = token.split(".")
-            if len(parts) == 3:
-                payload_b64 = parts[1]
-                padded_b64 = payload_b64 + "=" * (-len(payload_b64) % 4)
-                payload_data = json.loads(base64.urlsafe_b64decode(padded_b64).decode())
-                email = payload_data.get("sub")
-        except Exception:
-            pass
+    try:
+        parts = token.split(".")
+        if len(parts) == 3:
+            payload_b64 = parts[1]
+            padded_b64 = payload_b64 + "=" * (-len(payload_b64) % 4)
+            payload_data = json.loads(base64.urlsafe_b64decode(padded_b64).decode())
+            email = payload_data.get("sub")
+    except Exception:
+        pass
 
     if not email:
         return None

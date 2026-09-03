@@ -19,6 +19,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    // Ping backend health check to wake up Render server instantly on app load
+    axios.get('/api/health').catch(() => {});
+
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       fetchUserProfile();

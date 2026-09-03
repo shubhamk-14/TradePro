@@ -16,21 +16,24 @@ Base.metadata.create_all(bind=engine)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup: Seed Database
-    seed_database()
+    try:
+        seed_database()
+    except Exception as e:
+        print("Seed error during startup:", e)
     yield
-    # Shutdown logic if needed
 
 app = FastAPI(
-    title="TradePro (Tradivora) API",
+    title="Tradivora API",
     description="Next-Gen Institutional Trading Platform API",
     version="2.0.0",
     lifespan=lifespan
 )
 
+# CORS Middleware setup - Fixed wildcard with allow_credentials for Vercel & cross-origin clients
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:5174", "*"],
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,  # Set to False when using wildcard "*" to prevent browser CORS Network Errors
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -53,7 +56,7 @@ app.include_router(option_chain_router.router)
 
 @app.get("/api/health")
 def health_check():
-    return {"status": "healthy", "service": "TradePro API", "version": "2.0.0"}
+    return {"status": "healthy", "service": "Tradivora API", "version": "2.0.0"}
 
 if __name__ == "__main__":
     import uvicorn

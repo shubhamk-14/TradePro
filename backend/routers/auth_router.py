@@ -28,6 +28,34 @@ def register_user(user_in: schemas.UserCreate, db: Session = Depends(get_db)):
 @router.post("/login", response_model=schemas.Token)
 def login_user(user_in: schemas.UserLogin, db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.email == user_in.email).first()
+
+    # Auto-seed demo accounts on-the-fly if missing in deployed database
+    stylish_male_pic = "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=600&auto=format&fit=crop&q=80"
+    
+    if not user:
+        if user_in.email.lower() == "admin@tradivora.com":
+            user = models.User(
+                email="admin@tradivora.com",
+                hashed_password=auth.get_password_hash("admin123"),
+                full_name="Shubham (Lead Trader)",
+                role="admin",
+                profile_pic=stylish_male_pic
+            )
+            db.add(user)
+            db.commit()
+            db.refresh(user)
+        elif user_in.email.lower() == "trader@tradivora.com":
+            user = models.User(
+                email="trader@tradivora.com",
+                hashed_password=auth.get_password_hash("trader123"),
+                full_name="Pro Investor",
+                role="user",
+                profile_pic=stylish_male_pic
+            )
+            db.add(user)
+            db.commit()
+            db.refresh(user)
+
     if not user or not auth.verify_password(user_in.password, user.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

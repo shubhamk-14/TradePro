@@ -26,7 +26,9 @@ const AuthModal = ({ isOpen, onClose }) => {
       }
       onClose();
     } catch (err) {
-      setError(err.response?.data?.detail || 'Authentication failed. Please check credentials.');
+      console.error('Auth Error:', err);
+      const msg = err.response?.data?.detail || err.message || 'Authentication failed. Please check backend server status.';
+      setError(typeof msg === 'string' ? msg : JSON.stringify(msg));
     } finally {
       setLoading(false);
     }

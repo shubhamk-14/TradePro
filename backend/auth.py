@@ -41,12 +41,26 @@ def get_password_hash(password: str) -> str:
     return hashlib.sha256((password + SECRET_KEY).encode()).hexdigest()
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    if USE_PASSLIB:
+    if not hashed_password or not plain_password:
+        return False
+        
+    # 1. Direct string match
+    if plain_password == hashed_password:
+        return True
+        
+    # 2. SHA256 hash match
+    sha256_hash = hashlib.sha256((plain_password + SECRET_KEY).encode()).hexdigest()
+    if sha256_hash == hashed_password:
+        return True
+
+    # 3. Bcrypt passlib match (if hash starts with $2)
+    if USE_PASSLIB and hashed_password.startswith("$2"):
         try:
             return pwd_context.verify(plain_password, hashed_password)
         except Exception:
             pass
-    return get_password_hash(plain_password) == hashed_password
+
+    return False
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
     to_encode = data.copy()
